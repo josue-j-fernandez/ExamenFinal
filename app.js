@@ -2,107 +2,82 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 
-app.use(express.json());
+app.use(express.json()); 
+app.get('/info', (req, res) => {
 
-// GET
-app.get('/estado', (req, res) => {
-    res.send('Funciona');
-});
+    const fechaActual = new Date();
+    const fechaRegistro = fechaActual.toISOString()
+        .replace("T", " ")
+        .slice(0, 23);
 
-// POST
-app.post('/data', (req, res) => {  
-    const data = req.body;
+    const horaRegistro = fechaActual.getTime(); 
     res.json({
-        mensaje: "Resibido",
-        dataRecibida: {
-            producto: data.producto,
-            numero: data.numero,
-            otro: data.otro,
-            operacion: data.numero + data.numero + data.otro
+        mensaje: "Información obtenida correctamente",
+        datos: {
+            servicios: "proyecto backend",
+            version: 1.11,
+            entorno: "produccion",
+            estado: "Servicio funcionando correctamente",
+            fechaRegistro,
+            horaRegistro
         }
     });
 });
 
-// PUT
-app.put('/data/:id', (req, res) => {
-    const id = req.params.id;
-    const data = req.body;
+
+app.post('/datos', (req, res) => {
+
+    const { nombre, correo, edad } = req.body;
+
+ 
+
+    const fechaActual = new Date();
+    const fechaRegistro = fechaActual.toISOString()
+        .replace("T", " ")
+        .slice(0, 23);
+
+    const horaRegistro = fechaActual.getTime(); 
 
     res.json({
-        mensaje: "Actulizado",
-        dataRecibida: {
-            dataAct: data
-        }
+        mensaje: "Datos recibidos exitosamente",
+        datosRecibidos: {
+            nombre,
+            correo,
+            edad
+        },
+        fechaRegistro,
+        horaRegistro
     });
 });
 
-// PATCH
-app.patch('/data/:id', (req, res) => {
-    const id = req.params.id;
-    const cambios = req.body;
+
+app.put('/datos/:id', (req, res) => {
+
+    const idUsuario = req.params.id;
+    const { nombre, correo } = req.body;
+
+    const fechaActual = new Date();
+    const fechaActualizacion = fechaActual.toISOString()
+        .replace("T", " ")
+        .slice(0, 23);
+
+    const horaActualizacion = fechaActual.getTime();
 
     res.json({
-        mensaje: "Actualización parcial realizada",
-        id: id,
-        cambiosAplicados: cambios
+        mensaje: "Datos actualizados exitosamente",
+        idUsuario,
+        datosActualizados: {
+            nombre,
+            correo
+        },
+        fechaActualizacion,
+        horaActualizacion
     });
 });
 
-// DELETE
-app.delete('/data/:id', (req, res) => {
-    const id = req.params.id;
-
-    res.json({
-        mensaje: "Eliminado correctamente",
-        idEliminado: id
-    });
-});
 
 app.listen(PORT, () => {
-    console.log(`http://localhost:${PORT}`);
-});
-
-app.post('/verificar-edad', (req, res) => {
-    const { nombre, edad } = req.body;
-
-    if (!nombre || !edad) {
-        return res.status(400).json({
-            mensaje: "Faltan datos: nombre y edad son obligatorios"
-        });
-    }
-  
-    const esPar = edad % 2 === 0;
-
-    res.json({
-        mensaje: "Datos procesados correctamente",
-        datos: {
-            nombre,
-            edad,
-            resultado: esPar ? "La edad es par" : "La edad es impar"
-        }
-    });
+    console.log(`Servidor ejecutándose en http://localhost:${PORT}`);
 });
 
 
-app.post('/edad', (req, res) => {
-    const data = req.body;
-
-    const nombre = data.nombre;
-    const edad = data.edad;
-
-    let resultado = "";
-    if (!edad) {
-        resultado = "Edad no proporcionada";
-    } else {
-        resultado = (edad % 2 === 0) ? "La edad es par" : "La edad es impar";
-    }
-
-    res.json({
-        mensaje: "Recibido",
-        dataRecibida: {
-            nombre: nombre,
-            edad: edad,
-            resultado: resultado
-        }
-    });
-});
