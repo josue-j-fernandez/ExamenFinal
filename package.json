@@ -2,8 +2,10 @@
   "name": "examenfinal",
   "version": "1.0.0",
   "description": "Quemando proyectos",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,5 +21,8 @@
   "homepage": "https://github.com/josue-j-fernandez/ExamenFinal#readme",
   "dependencies": {
     "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
   }
 }
