@@ -1,0 +1,23 @@
+{
+  "name": "examenfinal",
+  "version": "1.0.0",
+  "description": "Quemando proyectos",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josue-j-fernandez/ExamenFinal.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/josue-j-fernandez/ExamenFinal/issues"
+  },
+  "homepage": "https://github.com/josue-j-fernandez/ExamenFinal#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
